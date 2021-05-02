@@ -34,14 +34,14 @@ object Main {
   }
 
   def logDebugSpecial(): Unit = {
-    logger.debug.when(cm.condition()) { info =>
-      info("Logging at a debug level from special method")
+    logger.debug.when(cm.condition()) { debug =>
+      debug("Logging at a debug level from special method")
     }
   }
 
   def logDebug(): Unit = {
-    logger.debug.when(cm.condition()) { handle =>
-      handle("Logging at a debug level")
+    logger.debug.when(cm.condition()) { debug =>
+      debug("Logging at a debug level")
     }
   }
 
