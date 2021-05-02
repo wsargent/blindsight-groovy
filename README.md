@@ -10,4 +10,6 @@ A groovy script is evaluated, then run every time.  If the groovy script changes
 sbt run
 ```
 
-And then edit `condition.groovy` to your preference.  Hit Control-C to cancel the app.
+And then edit `condition.groovy` to your preference.  
+
+Hit Control-C to cancel the app.

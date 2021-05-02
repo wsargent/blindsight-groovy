@@ -4,13 +4,17 @@ import sourcecode.Enclosing
 import sourcecode.File
 
 boolean evaluate(Level level, Markers markers, Enclosing enclosing, File file) {
-    if (enclosing.value() == "com.tersesystems.blindsight.groovy.Main.logDebugSpecial") {
+    // We like this debug message so we want it to show up
+    var enc = enclosing.value()
+    if (enc == "com.tersesystems.blindsight.groovy.Main.logDebugSpecial") {
         return true;
     }
 
-    if (enclosing.value() == "com.tersesystems.blindsight.groovy.Main.logInfoSpecial") {
+    // We don't like this info message
+    if (enc == "com.tersesystems.blindsight.groovy.Main.logInfoSpecial") {
         return false;
     }
 
+    // Otherwise we'll just use info level.
     return (level.toInt() >= Level.INFO.toInt())
 }

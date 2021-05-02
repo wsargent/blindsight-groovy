@@ -2,10 +2,12 @@ package com.tersesystems.blindsight.groovy
 
 import com.tersesystems.blindsight.{Logger, LoggerFactory}
 
+import java.nio.file.Paths
+
 object Main {
 
   val logger: Logger = LoggerFactory.getLogger(getClass)
-  val cm = new ConditionManager()
+  val cm = new ConditionManager(Paths.get("src/main/groovy/condition.groovy"), "groovy")
 
   def main(args: Array[String]): Unit = {
     // Run from a loop

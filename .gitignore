@@ -1,6 +1,7 @@
 .idea/
 *.iws
 out/
+logs/
 .idea_modules/
 atlassian-ide-plugin.xml
 .idea/replstate.xml
@@ -19,3 +20,4 @@ project/plugins/project/
 .history
 .cache
 .lib/
+.bsp/
