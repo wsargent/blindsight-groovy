@@ -1,12 +1,9 @@
-package com.tersesystems.blindsight.groovy
-
-import java.io.Reader
+package com.tersesystems.blindsight.scripting
 
 trait ConditionSource {
 
   def isInvalid: Boolean
 
-  def getReader: Reader
-
+  def script: String
 }
 

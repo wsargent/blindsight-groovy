@@ -1,10 +1,13 @@
-# Dynamic Conditions with Groovy
+# Dynamic Conditions with Scripting (Groovy / Tweakflow)
 
 This project demonstrates how to change logging conditions in a running JVM, using Blindsight.
 
 A condition has to return `Boolean` but is intentionally left open so that anything can be a condition.  This means that we can tie a condition to a
 [JSR 223 script](https://docs.oracle.com/en/java/javase/12/scripting/java-scripting-api.html#GUID-C4A6EB7C-0AEA-45EC-8662-099BDEFC361A).
+
 In this example, we'll use [Groovy](http://docs.groovy-lang.org/docs/latest/html/documentation/#jsr223) to evaluate a condition and return a boolean.  If the groovy script changes, then the JVM picks it up and evaluates it without having to restart the JVM.
+
+The groovy script can execute arbitrary logic in the JVM, so it's powerful but may be a security risk.  A [Tweakflow](https://twineworks.github.io/tweakflow/index.html) condition manager is also included, which runs a tightly controlled script that only allows computation on explicit inputs.
 
 ## Main
 
@@ -14,7 +17,8 @@ The main program runs a loop that conditionally logs various statements:
 object Main {
 
   val logger: Logger = LoggerFactory.getLogger(getClass)
-  val cm = new ConditionManager(Paths.get("src/main/groovy/condition.groovy"), "groovy")
+  val cm = new ScriptConditionManager(Paths.get("src/main/groovy/condition.groovy"), "groovy")
+  //val cm = new TweakFlowConditionManager(Paths.get("src/main/tweakflow/condition.tf"))
 
   def main(args: Array[String]): Unit = {
     // Run from a loop
@@ -68,12 +72,12 @@ import sourcecode.File
 boolean evaluate(Level level, Markers markers, Enclosing enclosing, File file) {
     // We like this debug message so we want it to show up
     var enc = enclosing.value()
-    if (enc == "com.tersesystems.blindsight.groovy.Main.logDebugSpecial") {
+    if (enc == "com.tersesystems.blindsight.scripting.Main.logDebugSpecial") {
         return true;
     }
 
     // We don't like this info message
-    if (enc == "com.tersesystems.blindsight.groovy.Main.logInfoSpecial") {
+    if (enc == "com.tersesystems.blindsight.scripting.Main.logInfoSpecial") {
         return false;
     }
 

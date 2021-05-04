@@ -1,4 +1,4 @@
-package com.tersesystems.blindsight.groovy
+package com.tersesystems.blindsight.scripting
 
 import com.tersesystems.blindsight.{Logger, LoggerFactory}
 
@@ -7,7 +7,9 @@ import java.nio.file.Paths
 object Main {
 
   val logger: Logger = LoggerFactory.getLogger(getClass)
-  val cm = new ConditionManager(Paths.get("src/main/groovy/condition.groovy"), "groovy")
+
+  //val cm = new ScriptConditionManager(Paths.get("src/main/groovy/condition.groovy"), "groovy")
+  val cm = new TweakFlowConditionManager(Paths.get("src/main/tweakflow/condition.tf"))
 
   def main(args: Array[String]): Unit = {
     // Run from a loop
