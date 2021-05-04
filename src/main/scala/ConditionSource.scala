@@ -1,4 +1,4 @@
-package com.tersesystems.blindsight.groovy
+package com.tersesystems.blindsight.scripting
 
 trait ConditionSource {
 

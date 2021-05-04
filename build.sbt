@@ -1,12 +1,10 @@
-name := "blindsight-groovy"
+name := "blindsight-scripting"
 
 version := "0.1"
 
 scalaVersion := "2.13.5"
 
-idePackagePrefix := Some("com.tersesystems.blindsight.groovy")
-
-Compile / sourceDirectories := Seq(file("groovy"))
+idePackagePrefix := Some("com.tersesystems.blindsight.scripting")
 
 libraryDependencies += "com.tersesystems.blindsight" %% "blindsight-logstash" % "1.4.1"
 

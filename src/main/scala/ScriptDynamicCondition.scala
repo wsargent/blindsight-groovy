@@ -1,4 +1,4 @@
-package com.tersesystems.blindsight.groovy
+package com.tersesystems.blindsight.scripting
 
 import com.tersesystems.blindsight.{Condition, Markers}
 import org.slf4j.event.Level

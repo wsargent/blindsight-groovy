@@ -1,4 +1,4 @@
-package com.tersesystems.blindsight.groovy
+package com.tersesystems.blindsight.scripting
 
 import java.io.{FileNotFoundException, IOException, Reader, StringReader}
 import java.nio.file.{Files, Path}
