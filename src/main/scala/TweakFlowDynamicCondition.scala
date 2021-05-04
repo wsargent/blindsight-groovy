@@ -2,6 +2,7 @@ package com.tersesystems.blindsight.scripting
 
 import com.tersesystems.blindsight.{Condition, Markers}
 import com.twineworks.tweakflow.lang.TweakFlow
+import com.twineworks.tweakflow.lang.errors.LangException
 import com.twineworks.tweakflow.lang.load.loadpath.{LoadPath, MemoryLocation}
 import com.twineworks.tweakflow.lang.runtime.Runtime
 import com.twineworks.tweakflow.lang.values.Values
@@ -44,8 +45,10 @@ class TweakFlowDynamicCondition(source: ConditionSource, line: Line, enclosing: 
       ).bool()
       result
     } catch {
-      case e: Exception =>
-        //e.printStackTrace()
+      case e: LangException =>
+        val info = e.getSourceInfo
+        println(info)
+        e.printStackTrace()
         false
     }
   }

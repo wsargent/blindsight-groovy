@@ -7,7 +7,7 @@ A condition has to return `Boolean` but is intentionally left open so that anyth
 
 In this example, we'll use [Groovy](http://docs.groovy-lang.org/docs/latest/html/documentation/#jsr223) to evaluate a condition and return a boolean.  If the groovy script changes, then the JVM picks it up and evaluates it without having to restart the JVM.
 
-The groovy script can execute arbitrary logic in the JVM, so it's powerful but may be a security risk.  A [Tweakflow](https://twineworks.github.io/tweakflow/index.html) condition manager is also included, which runs a tightly controlled script that only allows computation on explicit inputs.
+The groovy script can execute arbitrary logic in the JVM, so it's powerful but may be a security risk.  A [Tweakflow](https://twineworks.github.io/tweakflow/index.html) condition manager is also included, which runs a tightly controlled script that only allows computation on explicit inputs.  The TweakFlow script additionally has an HMAC signature that ensures that scripts have not been tampered with. 
 
 ## Main
 

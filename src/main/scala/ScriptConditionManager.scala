@@ -14,7 +14,7 @@ class ScriptConditionManager(path: Path, engineName: String) {
     case None => throw new IllegalStateException(s"No engine found for $engineName")
   }
 
-  private val fileConditionSource = new FileConditionSource(path)
+  private val fileConditionSource = new FileConditionSource(path, _ => true)
 
   def condition()(implicit enclosing: Enclosing, file: sourcecode.File): Condition = {
     new ScriptDynamicCondition(engine, fileConditionSource, enclosing, file)

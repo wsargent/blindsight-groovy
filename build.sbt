@@ -8,6 +8,8 @@ idePackagePrefix := Some("com.tersesystems.blindsight.scripting")
 
 libraryDependencies += "com.tersesystems.blindsight" %% "blindsight-logstash" % "1.4.1"
 
+libraryDependencies += "com.tersesystems.securitybuilder" % "securitybuilder" % "1.0.0"
+
 // https://github.com/twineworks/tweakflow
 libraryDependencies += "com.twineworks" % "tweakflow" % "1.3.2"
 

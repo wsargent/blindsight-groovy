@@ -5,7 +5,7 @@ import java.nio.file.{Files, Path}
 import java.nio.file.attribute.FileTime
 import java.util.concurrent.atomic.AtomicReference
 
-class FileConditionSource(val path: Path) extends ConditionSource {
+class FileConditionSource(val path: Path, verifier: String => Boolean) extends ConditionSource {
 
   if (!Files.exists(path)) throw new FileNotFoundException(path.toAbsolutePath.toString)
 
@@ -27,8 +27,14 @@ class FileConditionSource(val path: Path) extends ConditionSource {
   }
 
   override def script: String = {
-    try Files.readString(path)
-    catch {
+    try {
+      val str = Files.readString(path)
+      if (verifier(str)) {
+        str
+      } else {
+        throw new IllegalStateException(s"Failed signature check on $path")
+      }
+    } catch {
       case e: IOException =>
         //e.printStackTrace()
         "def evaluate() { false }"
