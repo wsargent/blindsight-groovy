@@ -7,12 +7,16 @@ import sourcecode.File
 
 import javax.script.{Invocable, ScriptEngine}
 
-class DynamicCondition(engine: ScriptEngine, source: ConditionSource, enclosing: Enclosing, file: sourcecode.File) extends Condition {
+class ScriptDynamicCondition(engine: ScriptEngine, source: ConditionSource, enclosing: Enclosing, file: File) extends Condition {
   private val evaluationName = "evaluate"
 
   eval()
 
-  protected def evaluate(level: Level, markers: Markers, enclosing: Enclosing, file: sourcecode.File): Boolean = try {
+  private def eval(): Unit = {
+    engine.eval(source.script)
+  }
+
+  override def apply(level: Level, markers: Markers): Boolean = try {
     if (source.isInvalid) {
       eval()
     }
@@ -23,10 +27,4 @@ class DynamicCondition(engine: ScriptEngine, source: ConditionSource, enclosing:
       //e.printStackTrace()
       false
   }
-
-  private def eval(): Unit = {
-    engine.eval(source.getReader)
-  }
-
-  override def apply(level: Level, markers: Markers): Boolean = evaluate(level, markers, enclosing, file)
 }

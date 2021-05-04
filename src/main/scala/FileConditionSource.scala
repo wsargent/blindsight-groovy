@@ -26,12 +26,12 @@ class FileConditionSource(val path: Path) extends ConditionSource {
     }
   }
 
-  override def getReader: Reader = {
-    try Files.newBufferedReader(path)
+  override def script: String = {
+    try Files.readString(path)
     catch {
       case e: IOException =>
         //e.printStackTrace()
-        new StringReader("def evaluate() { false }")
+        "def evaluate() { false }"
     }
   }
 }

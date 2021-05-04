@@ -6,7 +6,7 @@ import sourcecode.Enclosing
 import java.nio.file.{Path, Paths}
 import javax.script.{ScriptEngine, ScriptEngineManager}
 
-class ConditionManager(path: Path, engineName: String) {
+class ScriptConditionManager(path: Path, engineName: String) {
 
   val factory = new ScriptEngineManager
   val engine: ScriptEngine = Option(factory.getEngineByName(engineName)) match {
@@ -17,6 +17,6 @@ class ConditionManager(path: Path, engineName: String) {
   private val fileConditionSource = new FileConditionSource(path)
 
   def condition()(implicit enclosing: Enclosing, file: sourcecode.File): Condition = {
-    new DynamicCondition(engine, fileConditionSource, enclosing, file)
+    new ScriptDynamicCondition(engine, fileConditionSource, enclosing, file)
   }
 }

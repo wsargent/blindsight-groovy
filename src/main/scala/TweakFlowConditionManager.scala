@@ -1,36 +1,15 @@
 package com.tersesystems.blindsight.groovy
 
-import com.twineworks.tweakflow.lang.TweakFlow
-import com.twineworks.tweakflow.lang.load.loadpath.{LoadPath, MemoryLocation}
-import com.twineworks.tweakflow.lang.values.{DateTimeValue, Values}
+import com.tersesystems.blindsight.Condition
+import sourcecode.{Enclosing, Line}
 
-import java.nio.file.{Files, Paths}
-import java.time.ZonedDateTime
+import java.nio.file.Path
 
-class TweakFlowConditionManager {
+class TweakFlowConditionManager(path: Path) {
 
+  private val fileConditionSource = new FileConditionSource(path)
 
-}
-
-object TweakFlowConditionManager {
-  private def compileModule(moduleText: String) = {
-    val memLocation = new MemoryLocation.Builder().add("condition.tf", moduleText).build
-    val loadPath = new LoadPath.Builder().addStdLocation().add(memLocation).build()
-    val runtime = TweakFlow.compile(loadPath, "condition.tf")
-    runtime.getModules.get(runtime.unitKey("condition.tf"))
-  }
-
-  def main(args: Array[String]) = {
-    val path = Paths.get("src/main/tweakflow/condition.tf")
-    val inputString = Files.readString(path)
-    val m = compileModule(inputString)
-    val format = m.getLibrary("condition").getVar("evaluate")
-    m.evaluate()
-    val level = Values.make(1)
-    val enclosing = Values.make("")
-    val file = Values.make("")
-    val line = Values.make(1)
-    val result = format.call(level, enclosing, line, file)
-    System.out.println("var call: " + result.bool())
+  def condition()(implicit line: Line, enclosing: Enclosing, file: sourcecode.File): Condition = {
+    new TweakFlowDynamicCondition(fileConditionSource, line, enclosing, file)
   }
 }
