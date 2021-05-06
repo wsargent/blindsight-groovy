@@ -4,8 +4,9 @@ import com.tersesystems.blindsight.{Logger, LoggerFactory}
 import com.tersesystems.securitybuilder.MacBuilder
 
 import java.nio.charset.StandardCharsets
-import java.nio.file.{Files, Paths}
+import java.nio.file.{Files, Path, Paths}
 import java.security.MessageDigest
+import javax.script.{ScriptEngine, ScriptEngineManager}
 
 object Main {
 
@@ -15,13 +16,15 @@ object Main {
 
   val logger: Logger = LoggerFactory.getLogger(getClass)
 
-  val scriptFile = Paths.get("src/main/tweakflow/condition.tf")
+  val scriptFile: Path = Paths.get("src/main/tweakflow/condition.tf")
 
   //val cm = new ScriptConditionManager(Paths.get("src/main/groovy/condition.groovy"), "groovy")
   // you can disable the verifier by setting input => true
   val cm = new TweakFlowConditionManager(scriptFile, input => verify(input))
 
   def main(args: Array[String]): Unit = {
+    setLogLevelsFromScript()
+
     // Uncomment this to start signing the script on program start
     // sign()
 
@@ -103,6 +106,22 @@ object Main {
       i += 2
     }
     data
+  }
+
+  private def setLogLevelsFromScript(): Unit = {
+    val groovyScriptEngine = {
+      val engineName = "groovy"
+      val factory = new ScriptEngineManager
+      val engine: ScriptEngine = Option(factory.getEngineByName(engineName)) match {
+        case Some(engine) => engine
+        case None => throw new IllegalStateException(s"No engine found for $engineName")
+      }
+      engine
+    }
+
+    val path = Paths.get("src/main/groovy/loglevel.groovy")
+    val value = Files.readString(path)
+    groovyScriptEngine.eval(value)
   }
 
 }

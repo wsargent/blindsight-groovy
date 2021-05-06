@@ -27,7 +27,7 @@
     </appender>
 
     <!-- We disable "level based" logging here because we want the groovy script to decide -->
-    <root level="ALL">
+    <root level="OFF">
         <appender-ref ref="CONSOLE"/>
         <appender-ref ref="JSON"/>
     </root>

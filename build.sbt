@@ -10,6 +10,9 @@ libraryDependencies += "com.tersesystems.blindsight" %% "blindsight-logstash" % 
 
 libraryDependencies += "com.tersesystems.securitybuilder" % "securitybuilder" % "1.0.0"
 
+// https://mvnrepository.com/artifact/com.tersesystems.logback/logback-classic
+libraryDependencies += "com.tersesystems.logback" % "logback-classic" % "0.16.2"
+
 // https://github.com/twineworks/tweakflow
 libraryDependencies += "com.twineworks" % "tweakflow" % "1.3.2"
 
