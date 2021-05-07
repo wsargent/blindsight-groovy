@@ -1,4 +1,5 @@
 package com.tersesystems.blindsight.scripting
+package tweakflow
 
 import com.tersesystems.blindsight.{Condition, LoggerFactory}
 import com.twineworks.tweakflow.lang.TweakFlow

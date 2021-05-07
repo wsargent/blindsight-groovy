@@ -1,7 +1,7 @@
 package com.tersesystems.blindsight.scripting
+package tweakflow
 
 import com.tersesystems.blindsight.{Condition, Markers}
-import com.twineworks.tweakflow.lang.errors.LangException
 import org.slf4j.event.Level
 import sourcecode.{Enclosing, File, Line}
 

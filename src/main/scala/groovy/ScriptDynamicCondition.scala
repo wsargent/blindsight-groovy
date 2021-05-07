@@ -1,9 +1,9 @@
 package com.tersesystems.blindsight.scripting
+package groovy
 
 import com.tersesystems.blindsight.{Condition, Markers}
 import org.slf4j.event.Level
-import sourcecode.Enclosing
-import sourcecode.File
+import sourcecode.{Enclosing, File}
 
 import javax.script.{Invocable, ScriptEngine}
 

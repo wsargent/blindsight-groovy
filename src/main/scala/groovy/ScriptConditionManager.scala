@@ -1,9 +1,10 @@
 package com.tersesystems.blindsight.scripting
+package groovy
 
 import com.tersesystems.blindsight.Condition
 import sourcecode.Enclosing
 
-import java.nio.file.{Path, Paths}
+import java.nio.file.Path
 import javax.script.{ScriptEngine, ScriptEngineManager}
 
 class ScriptConditionManager(path: Path, engineName: String) {

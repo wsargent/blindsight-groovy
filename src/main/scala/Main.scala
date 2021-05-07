@@ -1,6 +1,7 @@
 package com.tersesystems.blindsight.scripting
 
-import com.tersesystems.blindsight.{Logger, LoggerFactory}
+import com.tersesystems.blindsight.LoggerFactory
+import com.tersesystems.blindsight.scripting.tweakflow.TweakFlowConditionManager
 import com.tersesystems.securitybuilder.MacBuilder
 
 import java.nio.charset.StandardCharsets
@@ -14,7 +15,7 @@ object Main {
   // can't generate a valid signature :-)
   private val privateString = "very secret key"
 
-  val logger: Logger = LoggerFactory.getLogger(getClass)
+  val logger: ScriptAwareLogger = LoggerFactory.getLogger(getClass).asInstanceOf[ScriptAwareLogger]
 
   val scriptFile: Path = Paths.get("src/main/tweakflow/condition.tf")
 
@@ -53,9 +54,7 @@ object Main {
   }
 
   def logDebugSpecial(): Unit = {
-    logger.debug.when(cm.condition()) { debug =>
-      debug("Logging at a debug level from special method")
-    }
+    logger.debug("Logging at a debug level from special method")
   }
 
   def logDebug(): Unit = {
