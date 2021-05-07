@@ -12,32 +12,20 @@ class FileConditionSource(val path: Path, verifier: String => Boolean) extends C
   private val lastModified = new AtomicReference[FileTime](Files.getLastModifiedTime(path))
 
   override def isInvalid: Boolean = {
-    try {
-      val newTime = Files.getLastModifiedTime(path)
-      if (newTime.compareTo(lastModified.get) > 0) {
-        lastModified.set(newTime)
-        true
-      }
-      else false
-    } catch {
-      case e: IOException =>
-        //e.printStackTrace()
-        true
+    val newTime = Files.getLastModifiedTime(path)
+    if (newTime.compareTo(lastModified.get) > 0) {
+      lastModified.set(newTime)
+      true
     }
+    else false
   }
 
   override def script: String = {
-    try {
-      val str = Files.readString(path)
-      if (verifier(str)) {
-        str
-      } else {
-        throw new IllegalStateException(s"Failed signature check on $path")
-      }
-    } catch {
-      case e: IOException =>
-        //e.printStackTrace()
-        "def evaluate() { false }"
+    val str = Files.readString(path)
+    if (verifier(str)) {
+      str
+    } else {
+      throw new IllegalStateException(s"Failed signature check on $path")
     }
   }
 }

@@ -20,7 +20,8 @@ object Main {
 
   //val cm = new ScriptConditionManager(Paths.get("src/main/groovy/condition.groovy"), "groovy")
   // you can disable the verifier by setting input => true
-  val cm = new TweakFlowConditionManager(scriptFile, input => verify(input))
+  val cm = new TweakFlowConditionManager(scriptFile, input => true)
+  //val cm = new TweakFlowConditionManager(scriptFile, input => verify(input))
 
   def main(args: Array[String]): Unit = {
     setLogLevelsFromScript()
