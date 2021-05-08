@@ -1,7 +1,7 @@
 package com.tersesystems.blindsight.scripting
 package tweakflow
 
-import com.tersesystems.blindsight.{Condition, LoggerFactory}
+import com.tersesystems.blindsight.{Condition, LoggerFactory, Markers}
 import com.twineworks.tweakflow.lang.TweakFlow
 import com.twineworks.tweakflow.lang.errors.LangException
 import com.twineworks.tweakflow.lang.load.loadpath.{LoadPath, MemoryLocation}
@@ -21,7 +21,7 @@ class TweakFlowConditionManager(path: Path, verifier: String => Boolean) {
   private val source = new FileConditionSource(path, verifier)
 
   def condition()(implicit line: Line, enclosing: Enclosing, file: sourcecode.File): Condition = {
-    new TweakFlowDynamicCondition(this, line, enclosing, file)
+    new TweakFlowDynamicCondition(line, enclosing, file)
   }
 
   private[scripting] def execute(level: Level, enclosing: Enclosing, line: Line, file: File): Boolean = {
@@ -80,5 +80,11 @@ class TweakFlowConditionManager(path: Path, verifier: String => Boolean) {
   }
 
   eval()
+
+  class TweakFlowDynamicCondition(line: Line, enclosing: Enclosing, file: File) extends Condition {
+    override def apply(level: Level, markers: Markers): Boolean = {
+      execute(level, enclosing, line, file)
+    }
+  }
 
 }
